@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { logOut } from "../login/logInSlice";
 import {
   fetchDevices,
   selectDevices,
   selectFetchDeviceStatus,
+  selectNotifyModal,
+  showModal,
 } from "./deviceSlice";
 
 const useDevice = () => {
   const dispatch = useAppDispatch();
   const devices = useAppSelector(selectDevices);
+  const notifyModal = useAppSelector(selectNotifyModal);
   const isLoading = useAppSelector(selectFetchDeviceStatus);
-  const [showNotify, setShowNotify] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -23,7 +25,7 @@ const useDevice = () => {
   }, []);
 
   const handleClickNotify = () => {
-    setShowNotify(!showNotify);
+    dispatch(showModal());
   };
 
   const onLogOut = () => {
@@ -35,7 +37,7 @@ const useDevice = () => {
     isLoading,
     handleClickNotify,
     onLogOut,
-    showNotify,
+    notifyModal,
   };
 };
 

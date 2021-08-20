@@ -6,10 +6,12 @@ import { DeviceData, NotifyForm } from "./model";
 interface DeviceSlice {
   devices: DeviceData[];
   status: "idle" | "loading" | "success";
+  notifyModal: boolean;
 }
 
 const initialState: DeviceSlice = {
   status: "idle",
+  notifyModal: false,
   devices: [
     {
       id: 0,
@@ -34,7 +36,14 @@ export const submitNotify = createAsyncThunk(
 export const deviceSlice = createSlice({
   name: "device",
   initialState,
-  reducers: {},
+  reducers: {
+    showModal: (state) => {
+      state.notifyModal = true;
+    },
+    hideModal: (state) => {
+      state.notifyModal = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDevice.pending, (state) => {
@@ -51,10 +60,12 @@ export const deviceSlice = createSlice({
   },
 });
 
+export const { showModal, hideModal } = deviceSlice.actions;
+
 export const fetchDevices = (): AppThunk => (dispatch) => {
   dispatch(fetchDevice());
 };
-
+export const selectNotifyModal = (state: RootState) => state.device.notifyModal;
 export const selectDevices = (state: RootState) => state.device.devices;
 export const selectFetchDeviceStatus = (state: RootState) =>
   state.device.status === "loading";

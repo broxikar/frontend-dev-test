@@ -42,7 +42,7 @@ const notifyAPI = async (notifyForm: NotifyForm) => {
       headers,
     });
     if (res) {
-      console.log(res);
+      notification.open({ message: `Nofity submitted: ${res}` });
     }
   } catch (err) {
     notification.open({ message: `${API.END_POINT_NOTIFY}: ${err}` });

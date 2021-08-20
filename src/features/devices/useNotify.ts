@@ -1,6 +1,6 @@
 import { NotifyType } from "./model";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { submitNotify } from "./deviceSlice";
+import { hideModal, submitNotify } from "./deviceSlice";
 import { selectAuthToken } from "../login/logInSlice";
 
 const useNotify = (closeNotify: (close: boolean) => void) => {
@@ -18,7 +18,7 @@ const useNotify = (closeNotify: (close: boolean) => void) => {
     onCancel();
   };
   const onCancel = () => {
-    closeNotify(false);
+    dispatch(hideModal());
   };
 
   return {

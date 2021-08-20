@@ -1,19 +1,17 @@
 import { Button, Divider, Row, Spin } from "antd";
-import Notify from "./Notify";
+import MemoizedNotify from "./Notify";
 import DeviceList from "./DeviceList";
 import useDevice from "../useDevice";
 
 const Devices = () => {
-  const { devices, isLoading, handleClickNotify, showNotify, onLogOut } =
+  const { devices, isLoading, handleClickNotify, notifyModal, onLogOut } =
     useDevice();
 
-  return isLoading ? (
-    <Spin />
-  ) : (
+  return (
     <>
       <DeviceList devices={devices} />
       <Divider />
-      {devices.length}
+      {isLoading ? <Spin /> : devices.length}
       <br />
       <>devices</>
       <Row>
@@ -22,7 +20,10 @@ const Devices = () => {
         </Button>
         <Button onClick={onLogOut}>Log Out</Button>
       </Row>
-      <Notify showNotify={showNotify} closeNotify={handleClickNotify} />
+      <MemoizedNotify
+        showNotify={notifyModal}
+        closeNotify={handleClickNotify}
+      />
     </>
   );
 };
