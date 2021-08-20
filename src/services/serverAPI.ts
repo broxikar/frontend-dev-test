@@ -9,7 +9,6 @@ const serverApi = {
     return deviceAPI();
   },
   post: (notifyForm: NotifyForm) => {
-    console.log(notifyForm);
     return notifyAPI(notifyForm);
   },
   logIn: (userAuth: LogInEmailPassword) => {
@@ -31,18 +30,18 @@ const deviceAPI = async () => {
 };
 
 const notifyAPI = async (notifyForm: NotifyForm) => {
-  console.log(notifyForm);
-  const token = notifyForm.token;
-  const notify = notifyForm.notify;
-  const headers = {
-    Authorization: token,
+  const { token, notify } = notifyForm;
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
   };
   try {
-    const res = await axios.post(`${API.API}${API.END_POINT_NOTIFY}`, notify, {
-      headers,
-    });
+    const res = await axios.post(
+      `${API.API}${API.END_POINT_NOTIFY}`,
+      notify,
+      config
+    );
     if (res) {
-      notification.open({ message: `Nofity submitted: ${res}` });
+      notification.open({ message: `Nofity submitted` });
     }
   } catch (err) {
     notification.open({ message: `${API.END_POINT_NOTIFY}: ${err}` });

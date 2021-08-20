@@ -44,32 +44,20 @@ const Notify = ({ showNotify, closeNotify }: NotifyProps) => {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item
-          name={["notify", "name"]}
-          label="Name"
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="name" label="Name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
         <Form.Item
-          name={["notify", "email"]}
+          name="email"
           label="Email"
           rules={[{ required: true, type: "email" }]}
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name={["notify", "repoUrl"]}
-          label="repoUrl"
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="repoUrl" label="repoUrl" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item
-          name={["notify", "massage"]}
-          label="Massage"
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="message" label="Message" rules={[{ required: true }]}>
           <Input.TextArea />
         </Form.Item>
       </Form>
